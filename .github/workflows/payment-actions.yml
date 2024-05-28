@@ -1,0 +1,43 @@
+name: Make Venmo Payment
+
+on:
+  workflow_dispatch:
+  ### Uncomment to run on a schedule
+  # schedule:
+  #   - cron: '0 0 2 * *'
+
+jobs:
+  payment-1:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Gud Cush Run Script
+      env:
+        VENMO_TOKEN: ${{ secrets.VENMO_TOKEN }}
+        PAYMENT_ID: ${{ secrets.MACU_PAYMENT_ID }}
+        PAYMENT_AMMOUNT: 420.69
+        PAYEE: "Snoop"
+        NOTE: "The gud cush"
+      run: python ./src/venmo_payment.py
+    
+    - name: Repentance Run Script
+      env:
+        VENMO_TOKEN: ${{ secrets.VENMO_TOKEN }}
+        PAYMENT_ID: ${{ secrets.MACU_PAYMENT_ID }}
+        PAYMENT_AMMOUNT: 666.00
+        PAYEE: "Pope"
+        NOTE: "For the sins"
+      run: python ./src/venmo_payment.py
